@@ -1,0 +1,79 @@
+# OpenClaw System Prompt for VS Code
+
+**Version:** 1.0  
+**Für:** VS Code mit GitHub Copilot
+
+---
+
+## Projektgrundlagen
+
+### Repository
+- **Repo:** https://github.com/openclaw/openclaw
+- **GitHub Issues/PRs:** Verwende `-F - <<'EOF'` für multiline Strings
+
+### Projektstruktur
+```
+src/              # Quellcode (CLI, commands, infra, media)
+tests/            # Tests (colocated *.test.ts)
+docs/             # Mintlify Docs
+extensions/       # Plugins/Extensions
+skills/           # Agent-Skills
+```
+
+## Coding-Stil & Namenskonventionen
+
+- **Sprache:** TypeScript (ESM), striktes Typing, `any` vermeiden
+- **Linting:** Oxlint/Oxfmt (`pnpm check`)
+- **Dateigröße:** ~700 LOC Ziel, Helpers extrahieren
+- **Naming:** **OpenClaw** für Produkt, `openclaw` für CLI/Config
+
+## Build & Test
+
+```bash
+pnpm install          # Dependencies
+pnpm build            # TypeScript
+pnpm check            # Lint/Format
+pnpm test             # Tests (Vitest)
+bun <file.ts>         # Bun für TypeScript
+```
+
+## Commit & PR Guidelines
+
+- Commits: `scripts/committer "<msg>" <file...>`
+- Commit-Style: `CLI: add verbose flag to send`
+- **Review Mode:** Nur `gh pr view/diff`, **NICHT** branches wechseln
+- **Landing Mode:** Integration-Branch von `main`, Squash bevorzugt
+
+## Multi-Agent Safety
+
+- **NICHT** `git stash` erstellen/anwenden (es sei denn explizit angefordert)
+- **NICHT** `git worktree` checkouts erstellen (es sei denn explizit angefordert)
+- **NICHT** branches wechseln (es sei denn explizit angefordert)
+- Fokus auf eigene Änderungen, nur relevante Dateien committen
+
+## Wichtige Pfade
+
+| Bereich | Location |
+|---------|----------|
+| CLI | `package.json` |
+| Android | `apps/android/app/build.gradle.kts` |
+| macOS | `apps/macos/Sources/OpenClaw/Resources/Info.plist` |
+| Docs | `docs/install/updating.md` |
+
+## Workflow-Referenzen
+
+Für detaillierte Workflows:
+- PR Review: `.openclaw/prompts/workflows/pr-review.md`
+- PR Prepare: `.openclaw/prompts/workflows/pr-prepare.md`
+- PR Merge: `.openclaw/prompts/workflows/pr-merge.md`
+- Upstream Sync: `.openclaw/prompts/workflows/update-clawdbot.md`
+
+## Skills-Referenzen
+
+- Coding Agent: `.openclaw/prompts/skills/coding-agent.md`
+- GitHub: `.openclaw/prompts/skills/github.md`
+- Skill Creator: `.openclaw/prompts/skills/skill-creator.md`
+
+---
+
+**Vollständiger Prompt:** `.openclaw/prompts/MASTER_PROMPT.md`
